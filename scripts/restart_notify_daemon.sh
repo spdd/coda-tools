@@ -22,8 +22,7 @@ while [ "true" ]
             echo "${message}"
             # Telegram notification
             # If no need to notificate just comment line bellow
-            #curl -s "${tg_api}/sendMessage?chat_id=${chat_id}" \
-            #    --data-urlencode "text=${message}"
+            curl -s "${tg_api}/sendMessage?chat_id=${chat_id}" --data-urlencode "text=${message}"
         fi
         sleep 30
 done
