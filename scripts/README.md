@@ -4,6 +4,7 @@ A simple bash script that keep coda always running and send status message to te
 
 # Prerequisites
 sudo apt install curl -y
+
 sudo apt install expect -y
 
 # How to create telegram bot?
