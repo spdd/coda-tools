@@ -3,16 +3,16 @@ while [ "true" ]
     do
         token="<YOUR_TELEGRAM_TOKEN>"
         chat_id="<YOUR_CHAT_ID>"
-        tg_api="https://api.telegram.org/bot${token}"
+        tg_api="https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}"
 
         CODA_PK="YOUR_PUBLIC_KEY"
         sync_status="Synced|Catchup|Bootstrap"
-        status=`coda client status | grep -E $sync_status`
+        status=`coda client status | grep -E ${sync_status}`
         password="<YOUR WALLET PASSWORD>"
-        if [ -z "$status" ]; then
-            crash="Coda crashed, trying to run coda..."
-            echo $crash
-            curl -s "${tg_api}/sendMessage?chat_id=${chat_id}" --data-urlencode "text=${crash}"
+        if [ -z "${status}" ]; then
+            crash_msg="Coda crashed, trying to run coda..."
+            echo $crash_msg
+            curl -s "${tg_api}" --data-urlencode "text=${crash_msg}"
             echo -e "${password}\n" | coda daemon -discovery-port 8303 \
                             -peer /dns4/seed-one.genesis.o1test.net/tcp/10002/ipfs/12D3KooWP7fTKbyiUcYJGajQDpCFo2rDexgTHFJTxCH8jvcL1eAH \
                             -peer /dns4/seed-two.genesis.o1test.net/tcp/10002/ipfs/12D3KooWL9ywbiXNfMBqnUKHSB1Q1BaHFNUzppu6JLMVn9TTPFSA \
@@ -20,11 +20,11 @@ while [ "true" ]
                             -run-snark-worker $CODA_PK \
                             -snark-worker-fee 1
         else
-            message="Coda ${status}!"
-            echo "${message}"
+            status_msg="Coda ${status}!"
+            echo "${status_msg}"
             # Telegram notification
             # If no need to notificate just comment line bellow
-            curl -s "${tg_api}/sendMessage?chat_id=${chat_id}" --data-urlencode "text=${message}"
+            curl -s "${tg_api}" --data-urlencode "text=${status_msg}"
         fi
         sleep 30
 done
