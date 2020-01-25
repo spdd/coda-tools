@@ -21,6 +21,7 @@ sudo apt install expect -y
 
 # Run
 ```
-~$ ./restart_notify_daemon.sh
+~$ chmod +x restart_notify_daemon.sh
+~$ ./restart_notify_daemon.sh &
 ```
 
