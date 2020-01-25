@@ -18,3 +18,9 @@ sudo apt install expect -y
 2. Send a dummy message to the bot.
 3. Go to following url https://api.telegram.org/bot<**YOUR_BOT_TOKEN**>/getUpdates
 4. Find for "chat":{"id":<**YOUR_BOT_CHAT_ID**>...
+
+# Run
+```
+~$ ./restart_notify_daemon.sh
+```
+
