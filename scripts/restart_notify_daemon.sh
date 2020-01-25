@@ -9,7 +9,8 @@ while [ "true" ]
         sync_status="Synced|Catchup|Bootstrap"
         status=`coda client status | grep -E ${sync_status}`
         password="<YOUR WALLET PASSWORD>"
-        if [ -z "${status}" ]; then
+        if ! pgrep -x "coda" > /dev/null 
+        then
             crash_msg="Coda crashed, trying to run coda..."
             echo $crash_msg
             curl -s "${tg_api}" --data-urlencode "text=${crash_msg}"
@@ -19,6 +20,7 @@ while [ "true" ]
                             -propose-key ~/keys/my-wallet \
                             -run-snark-worker $CODA_PK \
                             -snark-worker-fee 1
+            sleep 180
         else
             status_msg="Coda ${status}!"
             echo "${status_msg}"
