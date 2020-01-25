@@ -10,7 +10,9 @@ while [ "true" ]
         status=`coda client status | grep -E $sync_status`
         password="<YOUR WALLET PASSWORD>"
         if [ -z "$status" ]; then
-            echo "Coda crashed, trying to run coda..."
+            crash="Coda crashed, trying to run coda..."
+            echo $crash
+            curl -s "${tg_api}/sendMessage?chat_id=${chat_id}" --data-urlencode "text=${crash}"
             echo -e "${password}\n" | coda daemon -discovery-port 8303 \
                             -peer /dns4/seed-one.genesis.o1test.net/tcp/10002/ipfs/12D3KooWP7fTKbyiUcYJGajQDpCFo2rDexgTHFJTxCH8jvcL1eAH \
                             -peer /dns4/seed-two.genesis.o1test.net/tcp/10002/ipfs/12D3KooWL9ywbiXNfMBqnUKHSB1Q1BaHFNUzppu6JLMVn9TTPFSA \
